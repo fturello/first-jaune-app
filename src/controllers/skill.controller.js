@@ -5,6 +5,7 @@ const Skill = require("../entities/Skill.js");
 const create = async (req, res) => {
 	try {
 		await dataSource.getRepository(Skill).save(req.body);
+
 		res.status(201).send("Skill created");
 	} catch (e) {
 		console.error(e);
@@ -15,6 +16,7 @@ const create = async (req, res) => {
 const read = async (req, res) => {
 	try {
 		const skills = await dataSource.getRepository(Skill).find();
+
 		res.json(skills);
 	} catch (e) {
 		console.error(e);
@@ -28,6 +30,7 @@ const update = async (req, res) => {
 		const update = req.body;
 
 		await dataSource.getRepository(Skill).update(id, update);
+
 		res.status(200).send("Skill updated");
 	} catch (e) {
 		console.error(e);
@@ -40,6 +43,7 @@ const destroy = async (req, res) => {
 		const id = req.params.id;
 
 		await dataSource.getRepository(Skill).delete(id);
+
 		res.status(200).send("Skill deleted");
 	} catch (e) {
 		console.error(e);
