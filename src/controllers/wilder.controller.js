@@ -2,16 +2,6 @@ const dataSource = require("../utils.js");
 
 const Wilder = require("../entities/Wilder.js");
 
-const read = async (req, res) => {
-	try {
-		const wilders = await dataSource.getRepository(Wilder).find();
-		res.json(wilders);
-	} catch (e) {
-		console.error(e);
-		res.status(500).send("Error while fetching wilders");
-	}
-};
-
 const create = async (req, res) => {
 	try {
 		await dataSource.getRepository(Wilder).save(req.body);
@@ -19,6 +9,16 @@ const create = async (req, res) => {
 	} catch (e) {
 		console.error(e);
 		res.status(500).send("Error while creating wilder");
+	}
+};
+
+const read = async (req, res) => {
+	try {
+		const wilders = await dataSource.getRepository(Wilder).find();
+		res.json(wilders);
+	} catch (e) {
+		console.error(e);
+		res.status(500).send("Error while fetching wilders");
 	}
 };
 
@@ -38,6 +38,7 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
 	try {
 		const id = req.params.id;
+
 		await dataSource.getRepository(Wilder).delete(id);
 		res.status(201).send("Wilder deleted");
 	} catch (e) {
@@ -46,4 +47,4 @@ const destroy = async (req, res) => {
 	}
 };
 
-module.exports = { read, create, update, destroy };
+module.exports = { create, read, update, destroy };

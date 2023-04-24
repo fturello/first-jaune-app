@@ -4,8 +4,8 @@ const wilderController = require("../controllers/wilder.controller");
 
 const router = express.Router();
 
-router.get("/", wilderController.read);
 router.post("/", wilderController.create);
+router.get("/", wilderController.read);
 router.put("/:id", wilderController.update);
 router.delete("/:id", wilderController.destroy);
 
