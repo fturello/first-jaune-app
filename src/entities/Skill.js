@@ -1,9 +1,7 @@
 const { EntitySchema } = require("typeorm");
 
-// create entity schema for Wilder entity
-
 const entitySchema = new EntitySchema({
-	name: "Wilder",
+	name: "Skill",
 	columns: {
 		id: {
 			primary: true,
@@ -12,9 +10,7 @@ const entitySchema = new EntitySchema({
 		},
 		name: {
 			type: "text",
-		},
-		email: {
-			type: "text",
+			unique: true,
 		},
 	},
 });

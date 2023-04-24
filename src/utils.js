@@ -6,7 +6,7 @@ const dataSource = new typeorm.DataSource({
 	type: "sqlite",
 	database: "./wildersdb.sqlite",
 	synchronize: true,
-	entities: [require("./entities/Wilder")],
+	entities: [require("./entities/Wilder"), require("./entities/Skill")],
 });
 
 module.exports = dataSource;
