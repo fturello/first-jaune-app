@@ -10,7 +10,7 @@ app.use(express.json());
 
 // prefix all routes defined in router.js with /api
 
-const router = require("./router");
+const router = require("./routers");
 
 app.use("/api", router);
 
