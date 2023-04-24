@@ -1,5 +1,6 @@
 const express = require("express");
 const typeorm = require("typeorm");
+const Wilder = require("./entity/Wilder");
 
 const app = express();
 
@@ -9,7 +10,7 @@ const dataSource = new typeorm.DataSource({
 	type: "sqlite",
 	database: "./wildersdb.sqlite",
 	synchronize: true,
-	entity: [require("./entity/Wilder")],
+	entities: [require("./entity/Wilder")],
 });
 
 app.get("/", (req, res) => {
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 const start = async () => {
 	await dataSource.initialize();
+	dataSource.getRepository(Wilder).save({ name: "First Wilder" });
 	app.listen(port, () => console.log(`Server is running on port ${port}`));
 };
 
