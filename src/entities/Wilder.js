@@ -1,5 +1,7 @@
 const EntitySchema = require("typeorm").EntitySchema;
 
+// create entity schema for Wilder entity
+
 module.exports = new EntitySchema({
 	name: "Wilder",
 	columns: {

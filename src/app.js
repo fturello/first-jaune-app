@@ -1,0 +1,30 @@
+// create express app
+
+const express = require("express");
+
+const app = express();
+
+// use some application-level middleware
+
+app.use(express.json());
+
+// prefix all routes defined in router.js with /api
+
+const router = require("./router");
+
+app.use("/api", router);
+
+// define a route handler for the default home page
+
+app.get("/", (req, res) => {
+	console.log("A new request just hit the API !");
+	res.send("Hello dear API client :)");
+});
+
+// define a route handler for the default 404 page
+
+app.get("*", (req, res) => {
+	res.status(404).json({ message: "Not found !" });
+});
+
+module.exports = app;
