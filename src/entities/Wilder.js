@@ -1,5 +1,7 @@
 const { EntitySchema } = require("typeorm");
 
+const Skill = require("./Skill");
+
 // create entity schema for Wilder entity
 
 const entitySchema = new EntitySchema({
@@ -15,6 +17,22 @@ const entitySchema = new EntitySchema({
 		},
 		email: {
 			type: "text",
+		},
+	},
+	relations: {
+		skills: {
+			type: "many-to-many",
+			target: Skill, // The entity object or name of the entity to be used as the many-to-many target
+			joinTable: {
+				name: "wilders_skills", // The table name for the join table
+				joinColumn: {
+					name: "wilder_id",
+				},
+				inverseJoinColumn: {
+					name: "skill_id",
+				},
+			},
+			eager: true,
 		},
 	},
 });

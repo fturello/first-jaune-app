@@ -1,6 +1,7 @@
 const dataSource = require("../utils.js");
 
 const Wilder = require("../entities/Wilder.js");
+const Skill = require("../entities/Skill.js");
 
 const create = async (req, res) => {
 	try {
@@ -47,4 +48,37 @@ const destroy = async (req, res) => {
 	}
 };
 
-module.exports = { create, read, update, destroy };
+const addSkill = async (req, res) => {
+	try {
+		const wilderToUpdate = await dataSource
+			.getRepository(Wilder)
+			.findOneBy({ name: req.body.wilderName });
+
+		if (!wilderToUpdate) {
+			return res.status(404).send("Wilder not found");
+		}
+
+		console.log("wilder to update :", wilderToUpdate);
+
+		const skillsToAdd = await dataSource
+			.getRepository(Skill)
+			.createQueryBuilder("skill")
+			.where("skill.name IN (:...skillNames)", {
+				skillNames: req.body.skillName,
+			})
+			.getMany();
+
+		if (!skillsToAdd.length) {
+			throw new Error("Skills not found");
+		}
+
+		wilderToUpdate.skills = wilderToUpdate.skills.concat(skillsToAdd);
+		await dataSource.getRepository(Wilder).save(wilderToUpdate);
+		res.send("Skill added to wilder");
+	} catch (e) {
+		console.error(e);
+		res.status(500).send("Error while adding skill to wilder");
+	}
+};
+
+module.exports = { create, read, update, destroy, addSkill };
