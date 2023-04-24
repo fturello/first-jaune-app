@@ -28,4 +28,34 @@ const create = (req, res) => {
 		});
 };
 
-module.exports = { read, create };
+const update = (req, res) => {
+	const id = req.params.id;
+	const updates = req.body;
+	dataSource
+		.getRepository(Wilder)
+		.update(id, updates)
+		.then(() => {
+			res.status(201).send("Wilder updated");
+		})
+		.catch((e) => {
+			console.error(e);
+			res.status(500).send("Error while updating wilder");
+		});
+};
+
+const destroy = (req, res) => {
+	const id = req.params.id;
+
+	dataSource
+		.getRepository(Wilder)
+		.delete(id)
+		.then(() => {
+			res.status(201).send("Wilder deleted");
+		})
+		.catch((e) => {
+			console.error(e);
+			res.status(500).send("Error while deleting wilder");
+		});
+};
+
+module.exports = { read, create, update, destroy };

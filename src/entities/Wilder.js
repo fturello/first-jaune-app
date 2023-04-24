@@ -2,7 +2,7 @@ const EntitySchema = require("typeorm").EntitySchema;
 
 // create entity schema for Wilder entity
 
-module.exports = new EntitySchema({
+const entitySchema = new EntitySchema({
 	name: "Wilder",
 	columns: {
 		id: {
@@ -13,5 +13,10 @@ module.exports = new EntitySchema({
 		name: {
 			type: "text",
 		},
+		email: {
+			type: "text",
+		},
 	},
 });
+
+module.exports = entitySchema;
